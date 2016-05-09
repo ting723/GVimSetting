@@ -1,196 +1,184 @@
-"""""""""""""""""""""""ZLW Gvim ÉèÖÃ""""""""""""""""""
-
-"Ô­ÉúÉèÖÃ
+""""""""åŸºæœ¬è®¾ç½®"""""""""
+" ä¸å…¼å®¹vi
 set nocompatible
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
 
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
-
-""""""""""""""""""""""""²å¼ş¹ÜÀí"""""""""""""""    
-set rtp+=/vimfiles/autoload/vundle/
-call vundle#rc()
-"Ê¹ÓÃVundleÀ´¹ÜÀíVundle
-Bundle 'gmarik/vundle'
-
-"PowerLine²å¼ş ×´Ì¬À¸ÔöÇ¿ÏÔÊ¾
-Bundle 'Lokaltog/vim-powerline'
-set laststatus=2
-let g:Powline_symbols='fancy'
-
-
-"markdown
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'terryma/vim-multiple-cursors'
-
-"""""""""""""""""""""""""±ã½İÉèÖÃ"""""""""""""""""""""
-"Ã¿´Î±£´æºóÁ¢¼´ÉúĞ§
-autocmd! bufwritepost _vimrc source %
-
-"historyÎÄ¼şÖĞĞèÒª¼ÇÂ¼µÄĞĞÊıÎª1024
-set history=102
-
-"Óëwindows¹²Ïí¼ôÌù°å
+"ä¸windowså…±äº«å‰ªè´´æ¿
 set clipboard+=unnamed
 
-"ÔÚ×´Ì¬À¸ÏÔÊ¾ÊäÈëµÄÃüÁî
-set showcmd
-
-set t_Co=256
-"""""""""""""""""""""""""ËÑË÷ÓëÌæ»»""""""""""""""""""""
-
-"ËÑË÷Ê±¸ßÁÁÏÔÊ¾±»ÕÒµ½µÄÎÄ±¾
-set hls
-
-"ËÑË÷Ê±ÔÚÎ´ÍêÈ«ÊäÈëÍê±ÏÊ±£¬¼´¿ªÊ¼¼ìË÷
-set is
- 
-"""""""""""""""""""""""""Í¼ĞÎ½çÃæÉèÖÃ""""""""""""""""""""""""""""""""""
-
-"ÓÒ¼üµ¥»÷ÏÔÊ¾¿ì½İ²Ëµ¥
-set mousemodel-=popup
-
-"Òş²Ø¹¤¾ßÀ¸
-set guioptions-=T
-
-"Òş²Ø²Ëµ¥À¸
-set guioptions-=m
-
-"Òş²Ø×ó²à¹ö¶¯Ìõ
-set guioptions-=L
-
-"Òş²ØÓÒ²à¹ö¶¯Ìõ
-set guioptions-=r
-
-"Òş²Øµ×²¿¹ö¶¯Ìõ
-set guioptions-=bh
-
-"Òş²ØTabÀ¸
-set showtabline=0
-
-"ÉèÖÃÖ§³ÖÊó±ê
-set mouse=a
-
-"±ê³ß
-set ru 
-
-"""""""""""""""""""""""""ÎÄ¼şÊôĞÔ"""""""""""""""""""""""""""""""""""""""
-"Éè¶¨ÎÄ¼şä¯ÀÀÆ÷Ä¿Â¼Îªµ±Ç°Ä¿Â¼
-set autochdir
-
-"ÉèÖÃÎŞ±¸·İ
+" ä¸è¦å¤‡ä»½æ–‡ä»¶
 set nobackup
 
-" ÉèÖÃ±àÂë
-set encoding=utf-8
-set fileencodings=utf-8,chinese,latin-1
-if has("win32")
-    set fileencoding=chinese
-else
-    set fileencoding=utf-8
-endif
-"½â¾ö²Ëµ¥ÂÒÂë
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-"½â¾öconsleÊä³öÂÒÂë
-language messages zh_CN.utf-8
-"set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,chinese
+" historyæ–‡ä»¶ä¸­éœ€è¦è®°å½•çš„è¡Œæ•°ä¸º1024
+set history=1024
 
-""""""""""""""""""""""""ÎÄµµÊôĞÔÉèÖÃ"""""""""""""""""""""""""""""""""""
+"åœ¨çŠ¶æ€æ æ˜¾ç¤ºè¾“å…¥çš„å‘½ä»¤
+set showcmd
 
-"Ö÷Ìâ
+" é¢œè‰²è®¾ç½®
+set t_Co=256
+
+"è®¾å®šæ–‡ä»¶æµè§ˆå™¨ç›®å½•ä¸ºå½“å‰ç›®å½•
+set autochdir
+
+" è®¾ç½®é»˜è®¤ç›®å½•
+set directory=$HOME
+
+" å¯åŠ¨æ—¶å°±è¿›å…¥ç”¨æˆ·ç›®å½•
+cd $HOME
+
+""""""""çª—å£"""""""""""""
+
+"éšè—å³é”®å•å‡»æ˜¾ç¤ºå¿«æ·èœå•
+set mousemodel-=popup
+
+"éšè—å·¥å…·æ 
+set guioptions-=T
+
+"éšè—èœå•æ 
+set guioptions-=m
+
+"éšè—å·¦ä¾§æ»šåŠ¨æ¡
+set guioptions-=L
+
+"éšè—å³ä¾§æ»šåŠ¨æ¡
+set guioptions-=r
+
+"éšè—åº•éƒ¨æ»šåŠ¨æ¡
+set guioptions-=bh
+
+"éšè—Tabæ 
+ set showtabline=0
+
+"è®¾ç½®æ”¯æŒé¼ æ ‡
+set mouse=a
+
+
+"""""""æ’ä»¶ç®¡ç†""""""""""""
+call plug#begin('~/.vim/plugged')
+Plug 'plasticboy/vim-markdown'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'scrooloose/nerdtree'
+Plug 'Lokaltog/vim-powerline'
+Plug 'jsbeautify'
+" ä¸­æ–‡å¸®åŠ©
+Plug 'asins/vimcdoc'
+" ##### è‡ªåŠ¨æ ¹æ®å½“å‰æ‰“å¼€æ–‡ä»¶åˆ‡æ¢å·¥ä½œç›®å½•                                                                                                     
+Plug 'airblade/vim-rooter'                                                                                                                 
+let g:rooter_disable_map = 1 
+call plug#end()
+
+
+"PowerLineæ’ä»¶è®¾ç½®
+set laststatus=2
+set t_Co=256
+let g:Powline_symbols='unicode'
+
+"jsbeautify setting
+map <F4> :call JsBeautify()<cr> 
+nnoremap <F4> :call g:Jsbeautify()<cr><cr>
+
+""""""""mapå‘½ä»¤æ˜ å°„"""""""""
+
+nmap <C-k> :call InStr()<CR><CR>
+"""""""ä¸»é¢˜,èƒŒæ™¯,å­—ä½“""""
+
+"ä¸»é¢˜
 colo molokai
 
-"¿ªÆôÓï·¨¼ì²â
+"å¼€å¯è¯­æ³•æ£€æµ‹
 syntax on
 
-"´ò¿ªÓï·¨¸ßÁÁ
+"æ‰“å¼€è¯­æ³•é«˜äº®
 syntax enable
 
-"Õì²âÎÄ¼şÀàĞÍ
-filetype off
+"ä¾¦æµ‹æ–‡ä»¶ç±»å‹
+filetype on
 
-"ÔØÈëÎÄ¼şÀàĞÍ²å¼ş
-filetype plugin indent on
+" è½½å…¥æ–‡ä»¶ç±»å‹æ’ä»¶
+filetype plugin on
 
-"ÎªÌØ¶¨ÎÄ¼şÀàĞÍÔØÈëÏà¹ØËõ½øÎÄ¼ş
+"ä¸ºç‰¹å®šæ–‡ä»¶ç±»å‹è½½å…¥ç›¸å…³ç¼©è¿›æ–‡ä»¶
 filetype indent on
 
-"´øÓĞÈçÏÂ·ûºÅµÄµ¥´Ê²»Òª±»»»ĞĞ·Ö¸î
-set iskeyword+=_,%,$,@,#,-
-
-"ÉèÖÃµ±ÎÄ¼ş±»¸Ä¶¯Ê±×Ô¶¯ÔØÈë
+"è®¾ç½®å½“æ–‡ä»¶è¢«æ”¹åŠ¨æ—¶è‡ªåŠ¨è½½å…¥
 set autoread
 
-"¸ßÁÁµ±Ç°ĞĞ
-set cursorline
+"å¸¦æœ‰å¦‚ä¸‹ç¬¦å·çš„å•è¯ä¸è¦è¢«æ¢è¡Œåˆ†å‰²
+set iskeyword+=_,%,$,@,#,-
 
-"¸ßÁÁµ±Ç°ÁĞ
-set cursorcolumn
-
-"Ìí¼ÓĞĞºÅ
-set nu
-
-"ÉèÖÃTab¼üµÄ¿í¶ÈÎª4
-set ts=4
-
-"ÉèÖÃ×ÖÌå
+"è®¾ç½®å­—ä½“
 set guifont=Monaco:h11
 
-"indentÉ¾³ıĞĞÊ×Ëõ½ø
-"start ½â¾öi¼ü½øÈëInsertÄ£Ê½ºó,ÎŞ·¨É¾³ı·Ç±¾´ÎiÄ£Ê½ÊäÈë×Ö·û
-"eol ¿ÉÉ¾³ıÇ°Ò»ĞĞĞĞÄ©µÄ»Ø³µ
-set backspace=indent,eol,start	
+"é«˜äº®å½“å‰è¡Œ
+set cursorline
 
-"×Ô¶¯Ëõ½øµÄÊ±ºò,Ëõ½ø³ß´çÎª4¸ö¿Õ¸ñ
-set sw=4
+"é«˜äº®å½“å‰åˆ—
+set cursorcolumn
 
-"±à¼­Ê±½«ËùÓĞµÄTabÌæ»»Îª¿Õ¸ñ,ÒÑ´æµÄÎÄ¼ş£¬²»»á±»Ìæ»»£¬ÈçÏëÌæ»»£¬Ôò:retab
-set et
+"è®¾ç½®tabé•¿åº¦ä¸º4ä¸ªç©ºæ ¼
+set ts=4
 
-"ÉèÖÃµ¥´Ê¶¼ÔÚÍ¬Ò»ĞĞÏÔÊ¾
-set lbr
-
-"´ò¿ª¶ÏĞĞ¶ÔÑÇÖŞÓïÑÔµÄÖ§³Ö
-"m±íÊ¾ÔÊĞíÔÚÁ½¸öºº×ÖÖ®¼ä¶ÏĞĞ,¼´Ê¹ºº×ÖÖ®¼äÃ»ÓĞ³öÏÖ¿Õ¸ñ
-"B±íÊ¾½«Á½ĞĞºÏ²¢ÎªÒ»ĞĞÊ±,ºº×ÖÓëºº×ÖÖ®¼ä²»Òª²¹¿Õ¸ñ
-set fo+=mB
-
-"ÏÔÊ¾À¨ºÅÅä¶ÔÇé¿ö,ÊäÈëºóÀ¨ºÅºó,¹â±êÔÚÇ°À¨ºÅÉÏ¶ÌÔİÉÁË¸,È»ºóÌø»Ø
+"æ˜¾ç¤ºæ‹¬å·é…å¯¹æƒ…å†µ,è¾“å…¥åæ‹¬å·å,å…‰æ ‡åœ¨å‰æ‹¬å·ä¸ŠçŸ­æš‚é—ªçƒ,ç„¶åè·³å›
 set sm
 
-"²»ÕÛĞĞ
+"ä¸æŠ˜è¡Œ
 set nowrap
 
-"ÏÔÊ¾À¨ºÅÅä¶ÔÇé¿ö
+"æ˜¾ç¤ºè¡Œå·
+set nu
+
+"æ ‡å°º
+set ru 
+
+"indentåˆ é™¤è¡Œé¦–ç¼©è¿›
+"start è§£å†³ié”®è¿›å…¥Insertæ¨¡å¼å,æ— æ³•åˆ é™¤éæœ¬æ¬¡iæ¨¡å¼è¾“å…¥å­—ç¬¦
+"eol å¯åˆ é™¤å‰ä¸€è¡Œè¡Œæœ«çš„å›è½¦
+set backspace=indent,eol,start
+
+"è‡ªåŠ¨ç¼©è¿›çš„æ—¶å€™,ç¼©è¿›å°ºå¯¸ä¸º4ä¸ªç©ºæ ¼
+set sw=4
+
+"è®¾ç½®å•è¯éƒ½åœ¨åŒä¸€è¡Œæ˜¾ç¤º
+set lbr
+
+"æ˜¾ç¤ºæ‹¬å·é…å¯¹æƒ…å†µ
 set showmatch
 
-"ÉèÖÃ×Ô¶¯Ëõ½ø
+"è®¾ç½®è‡ªåŠ¨ç¼©è¿›
 set autoindent
+
+"æ‰“å¼€æ–­è¡Œå¯¹äºšæ´²è¯­è¨€çš„æ”¯æŒ
+"mè¡¨ç¤ºå…è®¸åœ¨ä¸¤ä¸ªæ±‰å­—ä¹‹é—´æ–­è¡Œ,å³ä½¿æ±‰å­—ä¹‹é—´æ²¡æœ‰å‡ºç°ç©ºæ ¼
+"Bè¡¨ç¤ºå°†ä¸¤è¡Œåˆå¹¶ä¸ºä¸€è¡Œæ—¶,æ±‰å­—ä¸æ±‰å­—ä¹‹é—´ä¸è¦è¡¥ç©ºæ ¼
+set fo+=mB
+
+""""""""ç¼–ç è®¾ç½®"""""""""
+
+" vimå†…éƒ¨ç¼–ç ,åŒ…æ‹¬Buffer,èœå•æ–‡æœ¬,æ¶ˆæ¯æ–‡æœ¬
+set encoding=utf-8
+
+" Vim ä¸­å½“å‰ç¼–è¾‘çš„æ–‡ä»¶çš„å­—ç¬¦ç¼–ç æ–¹å¼ï¼ŒVim ä¿å­˜æ–‡ä»¶æ—¶ä¹Ÿä¼šå°†æ–‡ä»¶ä¿å­˜ä¸ºè¿™ç§å­—ç¬¦ç¼–ç æ–¹å¼ 
+set fileencoding=utf-8
+
+" Vimè‡ªåŠ¨æ¢æµ‹fileencodingçš„é¡ºåºåˆ—è¡¨
+set fileencodings=ucs-bom,utf-8,cp936,gbk,gb18030,gk2312,big5,euc-jp,euc-kr,latin1
+
+" Vim æ‰€å·¥ä½œçš„ç»ˆç«¯ (æˆ–è€… Windows çš„ Console çª—å£) çš„å­—ç¬¦ç¼–ç æ–¹å¼
+set termencoding=utf-8
+
+" æŒ‡å®šè¯­è¨€
+language messages zh_CN.utf-8
+
+"è§£å†³èœå•ä¹±ç 
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"""""""""""""""""""""""""æœç´¢ä¸æ›¿æ¢""""""""""""""""""""
+
+"æœç´¢æ—¶é«˜äº®æ˜¾ç¤ºè¢«æ‰¾åˆ°çš„æ–‡æœ¬
+set hls
+
+"æœç´¢æ—¶åœ¨æœªå®Œå…¨è¾“å…¥å®Œæ¯•æ—¶ï¼Œå³å¼€å§‹æ£€ç´¢
+set is
 
 
