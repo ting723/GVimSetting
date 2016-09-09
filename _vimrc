@@ -26,6 +26,8 @@ set directory=$HOME
 " 启动时就进入用户目录
 cd $HOME
 
+"不需要重启自动加载
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 """"""""窗口"""""""""""""
 
 "隐藏右键单击显示快捷菜单
@@ -60,6 +62,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'scrooloose/nerdtree'
 Plug 'Lokaltog/vim-powerline'
 Plug 'jsbeautify'
+Plug 'mattn/emmet-vim'
 " 中文帮助
 Plug 'asins/vimcdoc'
 " ##### 自动根据当前打开文件切换工作目录                                                                                                     
@@ -67,6 +70,16 @@ Plug 'airblade/vim-rooter'
 let g:rooter_disable_map = 1 
 call plug#end()
 
+"nerdtree config
+map <F2> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"let g:NERDTreeDirArrowExpandable = '>'
+"let g:NERDTreeDirArrowCollapsible = '>'
+
+" Vim 一启动即加载NERDTree
+"autocmd vimenter * NERDTree
 
 "PowerLine插件设置
 set laststatus=2
@@ -77,13 +90,19 @@ let g:Powline_symbols='unicode'
 map <F4> :call JsBeautify()<cr> 
 nnoremap <F4> :call g:Jsbeautify()<cr><cr>
 
-""""""""map命令映射"""""""""
 
+"Personal Function config
 nmap <C-k> :call InStr()<CR><CR>
+
+
+
+
+
 """""""主题,背景,字体""""
 
 "主题
-colo molokai
+"colo molokai
+colo murphy
 
 "开启语法检测
 syntax on
