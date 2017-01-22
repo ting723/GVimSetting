@@ -54,6 +54,8 @@ set guioptions-=bh
 "设置支持鼠标
 set mouse=a
 
+" 窗口初始大小
+set lines=45 columns=150
 
 """""""插件管理""""""""""""
 call plug#begin('~/.vim/plugged')
@@ -71,10 +73,11 @@ let g:rooter_disable_map = 1
 call plug#end()
 
 "nerdtree config
-map <F2> :NERDTreeToggle<CR>
+"map <F2> :NERDTreeToggle<CR>
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nn <silent><F2> :exec("NERDTree ".expand('%:h')) <CR>
 "let g:NERDTreeDirArrowExpandable = ''
 "let g:NERDTreeDirArrowCollapsible = ''
 " Vim 一启动即加载NERDTree
@@ -101,8 +104,8 @@ nmap <C-k> :call InStr()<CR><CR>
 """""""主题,背景,字体""""
 
 "主题
-"colo molokai
-colo murphy
+colo molokai
+"colo murphy
 
 "开启语法检测
 syntax on
@@ -126,7 +129,7 @@ set autoread
 set iskeyword+=_,%,$,@,#,-
 
 "设置字体
-set guifont=Monaco:h11
+set guifont=Monaco:h12
 
 "高亮当前行
 set cursorline
